@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12컷 — 마음을 담는 12번의 순간</title>
+    <meta name="description" content="당신의 소중한 순간들을 빈티지 필름 슬라이드로. 12컷은 디지털 사진을 레트로 감성의 실물 뷰어에 담아냅니다.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Zen+Maru+Gothic:wght@400;700;900&family=ZCOOL+KuaiLe&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Cafe24Ssurround';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+            font-weight: 700;
+            font-display: swap;
+        }
+    </style>
+
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer@4.0.0/dist/model-viewer.min.js"></script>
+</head>
+
+<body>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="nav" id="nav">
+        <div class="nav__inner">
+            <a href="#" class="nav__logo" aria-label="12컷 홈">
+                <img src="assets/images/nav-logo.svg" alt="" width="94" height="34" class="nav__logo-img"
+                    decoding="async" />
+            </a>
+            <ul class="nav__links">
+                <li><a href="#examples" data-i18n="nav_gallery">Gallery</a></li>
+                <li><a href="#product" data-i18n="nav_product">Product</a></li>
+                <li><a href="#how-it-works" data-i18n="nav_how">How It Works</a></li>
+                <li><a href="#pricing" data-i18n="nav_pricing">Pricing</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+            <div class="nav__right">
+                <div class="lang-switcher" role="group" aria-label="Language">
+                    <button class="lang-btn lang-btn--active" data-lang="en" tabindex="0" aria-label="English">EN</button>
+                    <button class="lang-btn" data-lang="ko" tabindex="0" aria-label="한국어">KR</button>
+                    <button class="lang-btn" data-lang="ja" tabindex="0" aria-label="日本語">JP</button>
+                    <button class="lang-btn" data-lang="zh" tabindex="0" aria-label="中文">CN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO (multi-frame scroll) ===== -->
+    <section class="hero" id="hero">
+        <div class="hero__bg">
+            <video autoplay loop muted playsinline class="hero__video">
+                <source src="assets/videos/hero-bg.webm" type="video/webm">
+                <source src="assets/videos/hero-bg.mp4" type="video/mp4">
+            </video>
+            <div class="hero__overlay"></div>
+            <div class="hero__grain"></div>
+        </div>
+
+        <div class="hero__frame hero__frame--intro">
+            <div class="hero__content">
+                <p class="hero__eyebrow" data-i18n="hero_eyebrow">Film Slide Viewer</p>
+                <h1 class="hero__title" data-i18n="hero_title">
+                    a new way to keep<br>
+                    <span class="hero__title-accent">12</span> moments
+                </h1>
+                <p class="hero__subtitle" data-i18n="hero_subtitle">
+                    your precious moments, held in<br>
+                    vintage film slides.
+                </p>
+                <a href="https://your-godomall-store.com/product" target="_blank" rel="noopener noreferrer" class="hero__cta">
+                    <span data-i18n="cta">Make Your Story</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                        <path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+                <div class="hero__scroll-hint">
+                    <div class="hero__scroll-line"></div>
+                    <span>SCROLL</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero__frame hero__frame--manifesto">
+            <div class="hero__content">
+                <img src="assets/images/heart-symbol.svg" alt="" class="manifesto__heart" width="40" height="30" aria-hidden="true" />
+                <p class="manifesto__text" data-i18n="manifesto_1">
+                    among thousands of photos, how many moments truly mattered?
+                </p>
+                <p class="manifesto__text" data-i18n="manifesto_2">
+                    12cut preserves those moments in a retro-inspired viewer. film slides that come alive in the light, memories you can hold in your hands.
+                </p>
+                <p class="manifesto__text manifesto__text--accent" data-i18n="manifesto_3">
+                    each frame connects past and present. your own time capsule, 12cut.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== EXAMPLES (Gallery) ===== -->
+    <section class="examples" id="examples">
+        <div class="examples__header">
+            <span class="section-label">Gallery</span>
+            <h2 class="section-title" data-i18n="examples_title">Stories captured in 12 cuts</h2>
+            <p class="section-desc" data-i18n="examples_desc">Any moment becomes special when kept in 12 cuts.</p>
+        </div>
+
+        <div class="film-reel" aria-label="12컷 필름 슬라이드 릴">
+            <div class="film-reel__ring">
+                <div class="film-reel__disc"></div>
+                <div class="film-reel__slot" style="--i:0"><img src="assets/images/slides/slide-01.jpg" alt="이자카야의 밤" loading="lazy" /></div>
+                <div class="film-reel__slot" style="--i:1"><img src="assets/images/slides/slide-02.jpg" alt="핑크빛 방" loading="lazy" /></div>
+                <div class="film-reel__slot" style="--i:2"><img src="assets/images/slides/slide-03.jpg" alt="말티즈 강아지" loading="lazy" /></div>
+                <div class="film-reel__slot" style="--i:3"><img src="assets/images/slides/slide-04.jpg" alt="아이스크림 데이트" loading="lazy" /></div>
+                <div class="film-reel__slot" style="--i:4"><img src="assets/images/slides/slide-05.jpg" alt="나른한 오후" loading="lazy" /></div>
+                <div class="film-reel__slot" style="--i:5"><img src="assets/images/slides/slide-06.jpg" alt="여름 바다" loading="lazy" /></div>
+                <div class="film-reel__slot" style="--i:6"><img src="assets/images/slides/slide-07.jpg" alt="따뜻한 저녁" loading="lazy" /></div>
+                <div class="film-reel__slot" style="--i:7"><img src="assets/images/slides/slide-08.jpg" alt="교복 셀카" loading="lazy" /></div>
+                <div class="film-reel__slot" style="--i:8"><img src="assets/images/slides/slide-09.jpg" alt="레트로 감성" loading="lazy" /></div>
+                <div class="film-reel__slot" style="--i:9"><img src="assets/images/slides/slide-10.jpg" alt="크리스마스 폴라로이드" loading="lazy" /></div>
+                <div class="film-reel__slot" style="--i:10"><img src="assets/images/slides/slide-11.jpg" alt="롤러스케이트" loading="lazy" /></div>
+                <div class="film-reel__slot" style="--i:11"><img src="assets/images/slides/slide-12.jpg" alt="웨딩" loading="lazy" /></div>
+            </div>
+            <div class="film-reel__center">
+                <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <circle cx="200" cy="200" r="108" fill="#221E1F"/>
+                    <circle cx="200" cy="200" r="108" fill="#404041" opacity="0.6"/>
+                    <circle cx="200" cy="200" r="105" fill="none" stroke="#EB078B" stroke-width="2" opacity="0.8"/>
+                    <path d="M194 115 L200 100 L206 115" stroke="#EB078B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" fill="none"/>
+                    <circle cx="170" cy="200" r="12" fill="#FFF200"/>
+                    <circle cx="200" cy="200" r="12" fill="#FFF200"/>
+                    <circle cx="230" cy="200" r="12" fill="#FFF200"/>
+                    <circle cx="170" cy="200" r="3" fill="#EB078B"/>
+                    <circle cx="200" cy="200" r="3" fill="#EB078B"/>
+                    <circle cx="230" cy="200" r="3" fill="#EB078B"/>
+                    <line x1="200" y1="120" x2="200" y2="280" stroke="#F9ED31" stroke-width="0.5" opacity="0.3"/>
+                    <line x1="120" y1="200" x2="280" y2="200" stroke="#F9ED31" stroke-width="0.5" opacity="0.3"/>
+                </svg>
+            </div>
+            <div class="film-reel__viewfinder" aria-hidden="true">
+                <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="10" width="40" height="40" fill="none" stroke="#F9ED31" stroke-width="1" opacity="0.5"/>
+                    <rect x="450" y="10" width="40" height="40" fill="none" stroke="#F9ED31" stroke-width="1" opacity="0.5"/>
+                    <rect x="10" y="450" width="40" height="40" fill="none" stroke="#F9ED31" stroke-width="1" opacity="0.5"/>
+                    <rect x="450" y="450" width="40" height="40" fill="none" stroke="#F9ED31" stroke-width="1" opacity="0.5"/>
+                    <line x1="240" y1="0" x2="240" y2="20" stroke="#F9ED31" stroke-width="0.5" opacity="0.3"/>
+                    <line x1="260" y1="0" x2="260" y2="20" stroke="#F9ED31" stroke-width="0.5" opacity="0.3"/>
+                    <line x1="240" y1="480" x2="240" y2="500" stroke="#F9ED31" stroke-width="0.5" opacity="0.3"/>
+                    <line x1="260" y1="480" x2="260" y2="500" stroke="#F9ED31" stroke-width="0.5" opacity="0.3"/>
+                    <line x1="0" y1="240" x2="20" y2="240" stroke="#F9ED31" stroke-width="0.5" opacity="0.3"/>
+                    <line x1="0" y1="260" x2="20" y2="260" stroke="#F9ED31" stroke-width="0.5" opacity="0.3"/>
+                    <line x1="480" y1="240" x2="500" y2="240" stroke="#F9ED31" stroke-width="0.5" opacity="0.3"/>
+                    <line x1="480" y1="260" x2="500" y2="260" stroke="#F9ED31" stroke-width="0.5" opacity="0.3"/>
+                </svg>
+            </div>
+            <div class="film-reel__lens" aria-label="뷰파인더">
+                <img class="film-reel__lens-img" src="assets/images/slides/slide-01.jpg" alt="" />
+                <div class="film-reel__lens-grain"></div>
+                <div class="film-reel__lens-vignette"></div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ===== PRODUCT ===== -->
+    <section class="product" id="product">
+        <div class="product__header">
+            <span class="section-label product__label">Product</span>
+            <h2 class="section-title product__title" data-i18n="product_section_title">Meet the 12cut viewer</h2>
+            <p class="section-desc product__desc" data-i18n="product_section_desc">A timeless way to hold your memories — one cut at a time.</p>
+        </div>
+        <div class="product__card">
+            <div class="product__bottom">
+                <div class="product__viewer-wrap" id="product-viewer">
+                    <model-viewer
+                        id="product-model"
+                        src="assets/models/product-fixed.glb?v=r2"
+                        poster="assets/images/product-viewer.png"
+                        camera-controls
+                        disable-zoom
+                        disable-pan
+                        shadow-intensity="1.5"
+                        shadow-softness="0.9"
+                        exposure="1.15"
+                        environment-image="neutral"
+                        camera-orbit="-15deg 75deg auto"
+                        interaction-prompt="none"
+                        class="product__model-viewer"
+                        aria-label="12cut 제품 360도 뷰"
+                        tabindex="0">
+                    </model-viewer>
+                </div>
+                <div class="product__colors" role="group" aria-label="색상 선택">
+                    <button class="product__color product__color--active" style="background: #ffffff;"
+                        aria-label="화이트" tabindex="0"></button>
+                    <button class="product__color" style="background: #FFF4EE;" aria-label="크림"
+                        tabindex="0"></button>
+                    <button class="product__color" style="background: #EFF6FC;" aria-label="라이트 블루"
+                        tabindex="0"></button>
+                    <button class="product__color" style="background: #019573;" aria-label="그린"
+                        tabindex="0"></button>
+                    <button class="product__color" style="background: #DD3848;" aria-label="레드"
+                        tabindex="0"></button>
+                    <button class="product__color" style="background: #3B3B47;" aria-label="다크 그레이"
+                        tabindex="0"></button>
+                </div>
+                <div class="product__info">
+                    <div class="product__name-price">
+                        <span class="product__name">12cut white</span>
+                        <span class="product__price" data-i18n="product_price">₩70,000</span>
+                    </div>
+                    <a href="https://your-godomall-store.com/product" target="_blank" rel="noopener noreferrer" class="product__buy" role="button" tabindex="0"
+                        aria-label="Buy now" data-i18n="product_buy">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="how" id="how-it-works">
+        <div class="how__header">
+            <span class="section-label">How It Works</span>
+            <h2 class="section-title" data-i18n="how_title">How to make your 12 cuts</h2>
+            <p class="section-desc" data-i18n="how_desc">Complete your own time capsule in three simple steps.</p>
+        </div>
+
+        <div class="how__steps">
+            <article class="how__card">
+                <div class="how__card-mockup">
+                    <img src="assets/images/how-step1.png" alt="Select 12 photos" width="343" height="343"
+                        loading="lazy" decoding="async" />
+                </div>
+                <span class="how__card-step">step 1</span>
+                <h3 class="how__card-title" data-i18n="how_s1_title">Select 12 Photos</h3>
+                <p class="how__card-desc" data-i18n="how_s1_desc">
+                    Click the 'slide thumbnail' and<br>
+                    select your photos.<br><br>
+                    Create your own story with<br>
+                    the moments to share and keep.
+                </p>
+            </article>
+
+            <article class="how__card">
+                <div class="how__card-mockup">
+                    <img src="assets/images/how-step2.png" alt="Arrange order" width="343" height="343"
+                        loading="lazy" decoding="async" />
+                </div>
+                <span class="how__card-step">step 2</span>
+                <h3 class="how__card-title" data-i18n="how_s2_title">Arrange the Order</h3>
+                <p class="how__card-desc" data-i18n="how_s2_desc">
+                    Set the order of the photos<br>
+                    in your slides.<br><br>
+                    It doesn't have to be chronological.<br>
+                    Connect them by the flow of emotions.
+                </p>
+            </article>
+
+            <article class="how__card">
+                <div class="how__card-mockup">
+                    <img src="assets/images/how-step3.png" alt="Trim photos" width="343" height="343"
+                        loading="lazy" decoding="async" />
+                </div>
+                <span class="how__card-step">step 3</span>
+                <h3 class="how__card-title" data-i18n="how_s3_title">Trim & Adjust</h3>
+                <p class="how__card-desc" data-i18n="how_s3_desc">
+                    For a better story,<br>
+                    trim each scene<br>
+                    to perfection.<br><br>
+                    Use zoom and rotation to<br>
+                    highlight the important moments.
+                </p>
+            </article>
+        </div>
+
+        <div class="how__result">
+            <div class="how__result-line"></div>
+            <p class="how__result-text" data-i18n="how_result">Your finished 12 cuts arrive in a vintage viewer.</p>
+            <svg class="how__result-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 5v14m0 0l-5-5m5 5l5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="testimonials" id="testimonials">
+        <div class="testimonials__header">
+            <span class="section-label">Stories</span>
+            <h2 class="section-title" data-i18n="testimonials_title">People who met 12cut</h2>
+        </div>
+
+        <div class="testimonials__grid">
+            <div class="testimonial-card">
+                <div class="testimonial-card__hearts" aria-label="5 hearts">♥ ♥ ♥ ♥ ♥</div>
+                <p class="testimonial-card__text" data-i18n="review_1_text">
+                    "I put our one-year memories into 12 cuts for my boyfriend's birthday.
+                    He held the viewer up and cried going through each frame.
+                    A digital album could never create that kind of emotion."
+                </p>
+                <div class="testimonial-card__author">
+                    <div class="testimonial-card__avatar">J</div>
+                    <div>
+                        <strong data-i18n="review_1_name">Jieun</strong>
+                        <span data-i18n="review_1_type">Couple 12cut</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-card__hearts" aria-label="5 hearts">♥ ♥ ♥ ♥ ♥</div>
+                <p class="testimonial-card__text" data-i18n="review_2_text">
+                    "I captured my baby's first year, and viewing them on film
+                    felt like real time travel.
+                    I gifted it to the grandparents — they look at it every day."
+                </p>
+                <div class="testimonial-card__author">
+                    <div class="testimonial-card__avatar">M</div>
+                    <div>
+                        <strong data-i18n="review_2_name">Minsu's Dad</strong>
+                        <span data-i18n="review_2_type">Baby 12cut</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-card__hearts" aria-label="5 hearts">♥ ♥ ♥ ♥ ♥</div>
+                <p class="testimonial-card__text" data-i18n="review_3_text">
+                    "Condensing a month in Europe into 12 photos
+                    actually made the memories clearer.
+                    I keep the viewer on my desk and peek through it sometimes."
+                </p>
+                <div class="testimonial-card__author">
+                    <div class="testimonial-card__avatar">H</div>
+                    <div>
+                        <strong data-i18n="review_3_name">Hyunwoo</strong>
+                        <span data-i18n="review_3_type">Travel 12cut</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRICING ===== -->
+    <section class="pricing" id="pricing">
+        <div class="pricing__header">
+            <span class="section-label">Pricing</span>
+            <h2 class="section-title" data-i18n="pricing_title">Start your story</h2>
+        </div>
+
+        <div class="pricing__cards">
+            <div class="pricing-card">
+                <span class="pricing-card__badge">1 Set</span>
+                <h3 class="pricing-card__name" data-i18n="pricing_1_name">12cut × 1</h3>
+                <div class="pricing-card__price">
+                    <span class="pricing-card__amount">70,000</span>
+                    <span class="pricing-card__won" data-i18n="pricing_won">₩</span>
+                </div>
+                <ul class="pricing-card__features">
+                    <li data-i18n="pricing_f_film1">1 set of 12cut slide film</li>
+                    <li data-i18n="pricing_f_viewer1">1 vintage viewer</li>
+                    <li data-i18n="pricing_f_box">Kraft box packaging</li>
+                </ul>
+                <a href="https://your-godomall-store.com/product" target="_blank" rel="noopener noreferrer" class="pricing-card__btn" data-i18n="cta">Make Your Story</a>
+            </div>
+
+            <div class="pricing-card pricing-card--featured">
+                <span class="pricing-card__badge">2 Set</span>
+                <h3 class="pricing-card__name" data-i18n="pricing_2_name">12cut × 2</h3>
+                <div class="pricing-card__price">
+                    <span class="pricing-card__amount">100,000</span>
+                    <span class="pricing-card__won" data-i18n="pricing_won">₩</span>
+                </div>
+                <ul class="pricing-card__features">
+                    <li data-i18n="pricing_f_film2">2 sets of 12cut slide film</li>
+                    <li data-i18n="pricing_f_viewer2">2 vintage viewers</li>
+                    <li data-i18n="pricing_f_box">Kraft box packaging</li>
+                    <li data-i18n="pricing_f_per2">₩50,000 per set</li>
+                </ul>
+                <a href="https://your-godomall-store.com/product" target="_blank" rel="noopener noreferrer" class="pricing-card__btn" data-i18n="cta">Make Your Story</a>
+            </div>
+
+            <div class="pricing-card">
+                <span class="pricing-card__badge">3 Set</span>
+                <h3 class="pricing-card__name" data-i18n="pricing_3_name">12cut × 3</h3>
+                <div class="pricing-card__price">
+                    <span class="pricing-card__amount">150,000</span>
+                    <span class="pricing-card__won" data-i18n="pricing_won">₩</span>
+                </div>
+                <ul class="pricing-card__features">
+                    <li data-i18n="pricing_f_film3">3 sets of 12cut slide film</li>
+                    <li data-i18n="pricing_f_viewer3">3 vintage viewers</li>
+                    <li data-i18n="pricing_f_box">Kraft box packaging</li>
+                    <li data-i18n="pricing_f_per3">₩50,000 per set</li>
+                </ul>
+                <a href="https://your-godomall-store.com/product" target="_blank" rel="noopener noreferrer" class="pricing-card__btn" data-i18n="cta">Make Your Story</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="faq" id="faq">
+        <div class="faq__inner">
+            <div class="faq__media">
+                <div class="faq__video-wrap">
+                    <video autoplay loop muted playsinline class="faq__video" poster="assets/images/product-viewer.png">
+                        <source src="assets/videos/product-3d.webm" type="video/webm">
+                        <source src="assets/videos/product-3d.mp4" type="video/mp4">
+                    </video>
+                    <div class="faq__video-grain"></div>
+                </div>
+            </div>
+            <div class="faq__content">
+                <span class="section-label">FAQ</span>
+                <h2 class="section-title" data-i18n="faq_title">Frequently Asked Questions</h2>
+
+                <div class="faq__list">
+                    <details class="faq__item" open>
+                        <summary class="faq__question" tabindex="0">
+                            <span data-i18n="faq_q1">How are photos inserted into the viewer?</span>
+                            <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                <path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </summary>
+                        <div class="faq__answer">
+                            <p data-i18n="faq_a1">Your 12 selected photos are printed as real film slides. They follow the same 35mm film mount format and can be viewed one by one through the vintage viewer.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq__item">
+                        <summary class="faq__question" tabindex="0">
+                            <span data-i18n="faq_q2">Will the photo quality differ from the original?</span>
+                            <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                <path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </summary>
+                        <div class="faq__answer">
+                            <p data-i18n="faq_a2">We use a high-resolution printing process to faithfully reproduce the colors and details of the original. Viewed through the lens with light passing through, the colors actually feel more vivid than on a screen.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq__item">
+                        <summary class="faq__question" tabindex="0">
+                            <span data-i18n="faq_q3">Can I add more than 12 photos?</span>
+                            <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                <path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </summary>
+                        <div class="faq__answer">
+                            <p data-i18n="faq_a3">Each viewer holds 12 slides. The number 12 — like the twelve months of a year or the twelve hours on a clock — is designed to tell one complete story. If you want to capture more moments, simply order an additional set.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq__item">
+                        <summary class="faq__question" tabindex="0">
+                            <span data-i18n="faq_q4">How long does production and shipping take?</span>
+                            <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                <path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </summary>
+                        <div class="faq__answer">
+                            <p data-i18n="faq_a4">Production takes 3–5 business days after order confirmation, with 1–2 days for shipping. As a made-to-order product, each set is crafted with care.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq__item">
+                        <summary class="faq__question" tabindex="0">
+                            <span data-i18n="faq_q5">Is gift wrapping available?</span>
+                            <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                <path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </summary>
+                        <div class="faq__answer">
+                            <p data-i18n="faq_a5">Every 12cut ships in a kraft box. You can add a gift message card, and a special gift wrapping option is also available.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq__item">
+                        <summary class="faq__question" tabindex="0">
+                            <span data-i18n="faq_q6">Are my uploaded photos safe?</span>
+                            <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                <path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </summary>
+                        <div class="faq__answer">
+                            <p data-i18n="faq_a6">Your uploaded photos are automatically deleted from our servers after production. They are never used for any purpose other than production, and are never shared with third parties.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" id="footer">
+        <div class="footer__inner">
+            <div class="footer__brand">
+                <img src="assets/images/nav-logo.svg" alt="12cut" width="94" height="34" class="footer__logo-img" decoding="async" />
+                <p class="footer__tagline" data-i18n="footer_tagline">12 moments from the heart</p>
+            </div>
+            <div class="footer__links">
+                <a href="#">Instagram</a>
+                <a href="#" data-i18n="footer_contact">Contact</a>
+                <a href="#" data-i18n="footer_terms">Terms</a>
+                <a href="#" data-i18n="footer_privacy">Privacy Policy</a>
+            </div>
+            <p class="footer__copy">&copy; 2026 12cut. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
