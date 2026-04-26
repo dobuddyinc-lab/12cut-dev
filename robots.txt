@@ -1,0 +1,9 @@
+# 12CUT - https://12cut.pages.dev
+# Allow all crawlers full access
+
+User-agent: *
+Allow: /
+Disallow: /assets/og/_alternates/
+
+# Sitemap
+Sitemap: https://12cut.pages.dev/sitemap.xml

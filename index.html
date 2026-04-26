@@ -37,6 +37,58 @@
     <!-- Theme -->
     <meta name="theme-color" content="#BE1D2C">
 
+    <!-- Favicons & Touch Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://12cut.pages.dev/#organization",
+          "name": "12CUT",
+          "url": "https://12cut.pages.dev/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://12cut.pages.dev/icon-512.png",
+            "width": 512,
+            "height": 512
+          },
+          "sameAs": []
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://12cut.pages.dev/#website",
+          "url": "https://12cut.pages.dev/",
+          "name": "12CUT",
+          "description": "함께 간직하고픈 12장의 행복한 이야기, 12CUT",
+          "publisher": { "@id": "https://12cut.pages.dev/#organization" },
+          "inLanguage": ["ko-KR", "en-US", "ja-JP", "zh-CN"]
+        },
+        {
+          "@type": "Product",
+          "@id": "https://12cut.pages.dev/#product",
+          "name": "12CUT 필름 슬라이드 뷰어",
+          "description": "디지털 사진 12장을 빈티지 필름 슬라이드 뷰어에 담아 손에 쥐는 추억으로 만드는 아날로그 키링 제품.",
+          "image": "https://12cut.pages.dev/assets/og/og-image.jpg",
+          "brand": { "@id": "https://12cut.pages.dev/#organization" },
+          "offers": {
+            "@type": "Offer",
+            "url": "https://12cut.pages.dev/",
+            "priceCurrency": "KRW",
+            "price": "70000",
+            "availability": "https://schema.org/InStock"
+          }
+        }
+      ]
+    }
+    </script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
