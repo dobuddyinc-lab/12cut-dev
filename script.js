@@ -454,13 +454,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const PART_PBR = {
-        BODY:       { roughness: 0.70, metallic: 0.0 },
-        LOGO:       { roughness: 0.80, metallic: 0.0 },
-        STRAP:      { roughness: 0.35, metallic: 0.05, color: '#CC2020' },
-        BUTTON:     { roughness: 0.25, metallic: 0.10, color: '#CC2020' },
-        LENS_RING:  { roughness: 0.40, metallic: 0.20, color: '#444444' },
-        LENS_GLASS: { roughness: 0.10, metallic: 0.40, color: '#1A1A1A' },
-        INTERNAL:   { roughness: 0.80, metallic: 0.0,  color: '#555555' },
+        BODY:       { roughness: 0.45, metallic: 0.0 },
+        LOGO:       { roughness: 0.55, metallic: 0.0 },
+        STRAP:      { roughness: 0.18, metallic: 0.0,  color: '#E83030', alpha: 0.78, blend: true },
+        BUTTON:     { roughness: 0.12, metallic: 0.0,  color: '#E02828', alpha: 0.72, blend: true },
+        LENS_RING:  { roughness: 0.30, metallic: 0.15, color: '#666666' },
+        LENS_GLASS: { roughness: 0.05, metallic: 0.35, color: '#222222' },
+        INTERNAL:   { roughness: 0.60, metallic: 0.0,  color: '#777777' },
     };
 
     const colorMap = [
@@ -472,13 +472,17 @@ document.addEventListener('DOMContentLoaded', () => {
         { label: 'dark gray', ko: '다크 그레이', hex: '#3B3B47' },
     ];
 
-    const applyPartMaterial = (materials, indices, rgb, roughness, metallic) => {
+    const applyPartMaterial = (materials, indices, rgb, roughness, metallic, alpha, blend) => {
         indices.forEach(idx => {
             const mat = materials[idx];
             if (!mat) return;
-            mat.pbrMetallicRoughness.setBaseColorFactor([...rgb, 1]);
+            mat.pbrMetallicRoughness.setBaseColorFactor([...rgb, alpha]);
             mat.pbrMetallicRoughness.setRoughnessFactor(roughness);
             mat.pbrMetallicRoughness.setMetallicFactor(metallic);
+            if (blend) {
+                mat.setAlphaMode('BLEND');
+                mat.setDoubleSided(true);
+            }
         });
     };
 
@@ -488,7 +492,11 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.entries(PART).forEach(([partName, indices]) => {
             const pbr = PART_PBR[partName];
             const rgb = pbr.color ? hexToRgb01(pbr.color) : bodyRgb;
-            applyPartMaterial(materials, indices, rgb, pbr.roughness, pbr.metallic);
+            applyPartMaterial(
+                materials, indices, rgb,
+                pbr.roughness, pbr.metallic,
+                pbr.alpha || 1.0, pbr.blend || false
+            );
         });
     };
 
