@@ -272,23 +272,15 @@
         <div class="product__card">
             <div class="product__bottom">
                 <div class="product__viewer-wrap" id="product-viewer">
-                    <model-viewer
-                        id="product-model"
-                        src="assets/models/product-textured.glb?v=t2"
-                        poster="assets/images/product-viewer.png"
-                        camera-controls
-                        disable-zoom
-                        disable-pan
-                        shadow-intensity="1.5"
-                        shadow-softness="0.9"
-                        exposure="1.4"
-                        environment-image="neutral"
-                        camera-orbit="-15deg 75deg auto"
-                        interaction-prompt="none"
-                        class="product__model-viewer"
-                        aria-label="12cut 제품 360도 뷰"
-                        tabindex="0">
-                    </model-viewer>
+                    <img
+                        id="product-render"
+                        src="assets/images/12CUT VARIATION.3987.png"
+                        alt="12cut white"
+                        class="product__render-img"
+                        draggable="false"
+                        loading="eager"
+                        decoding="async"
+                    />
                 </div>
                 <div class="product__colors" role="group" aria-label="색상 선택">
                     <button class="product__color product__color--active" style="background: #ffffff;"

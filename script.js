@@ -431,35 +431,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===== PRODUCT 3D VIEWER =====
-
-    const hexToRgb01 = (hex) => {
-        const n = parseInt(hex.replace('#', ''), 16);
-        return [(n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255];
-    };
+    // ===== PRODUCT IMAGE VIEWER =====
 
     const colorMap = [
-        { label: 'white', ko: '화이트', hex: '#FFFFFF' },
-        { label: 'cream', ko: '크림', hex: '#FFF4EE' },
-        { label: 'light blue', ko: '라이트 블루', hex: '#EFF6FC' },
-        { label: 'green', ko: '그린', hex: '#019573' },
-        { label: 'red', ko: '레드', hex: '#DD3848' },
-        { label: 'dark gray', ko: '다크 그레이', hex: '#3B3B47' },
+        { label: 'white', ko: '화이트', img: 'assets/images/12CUT VARIATION.3987.png' },
+        { label: 'cream', ko: '크림', img: 'assets/images/12CUT VARIATION.3988.png' },
+        { label: 'light blue', ko: '라이트 블루', img: 'assets/images/12CUT VARIATION.3989.png' },
+        { label: 'green', ko: '그린', img: 'assets/images/12CUT VARIATION.3991.png' },
+        { label: 'red', ko: '레드', img: 'assets/images/12CUT VARIATION.3990.png' },
+        { label: 'dark gray', ko: '다크 그레이', img: 'assets/images/12CUT VARIATION.3992.png' },
     ];
 
-    const applyBodyColor = (materials, hex) => {
-        const rgb = hexToRgb01(hex);
-        materials.forEach(mat => {
-            if (mat) {
-                mat.pbrMetallicRoughness.setBaseColorFactor([...rgb, 1]);
-            }
-        });
-    };
+    colorMap.forEach(c => {
+        const preload = new Image();
+        preload.src = c.img;
+    });
 
     // ===== PRODUCT COLOR SELECTOR =====
     const colorBtns = document.querySelectorAll('.product__color');
     const productName = document.querySelector('.product__name');
-    const modelEl = document.getElementById('product-model');
+    const renderImg = document.getElementById('product-render');
 
     colorBtns.forEach((btn, i) => {
         btn.addEventListener('click', () => {
@@ -471,8 +462,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 productName.textContent = `12cut ${color.label}`;
             }
 
-            if (modelEl && modelEl.model) {
-                applyBodyColor(modelEl.model.materials, color.hex);
+            if (renderImg && color) {
+                renderImg.style.opacity = '0';
+                setTimeout(() => {
+                    renderImg.src = color.img;
+                    renderImg.alt = `12cut ${color.label}`;
+                    renderImg.style.opacity = '1';
+                }, 150);
             }
         });
 
