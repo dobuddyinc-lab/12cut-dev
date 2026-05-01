@@ -438,30 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return [(n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255];
     };
 
-    // materials[0]=Material_8 front shell, [1]=Material_0 back shell,
-    // [2]=Material_1 back viewfinder, [3]=Material_2 internal plate,
-    // [4]=Material_3 lens ring, [5]=Material_4 logo emboss,
-    // [6]=Material_5 button cap, [7]=Material_6 button stem,
-    // [8]=Material_7 strap loop, [9]=Material_9 front lens
-    const PART = {
-        BODY: [0, 1],
-        LOGO: [5],
-        STRAP: [8],
-        BUTTON: [6, 7],
-        LENS_RING: [4],
-        LENS_GLASS: [2, 9],
-        INTERNAL: [3],
-    };
-
-    const PART_PBR = {
-        BODY:       { roughness: 0.45, metallic: 0.0 },
-        LOGO:       { roughness: 0.55, metallic: 0.0 },
-        STRAP:      { roughness: 0.18, metallic: 0.0,  color: '#E83030', alpha: 0.78, blend: true },
-        BUTTON:     { roughness: 0.12, metallic: 0.0,  color: '#E02828', alpha: 0.72, blend: true },
-        LENS_RING:  { roughness: 0.30, metallic: 0.15, color: '#666666' },
-        LENS_GLASS: { roughness: 0.05, metallic: 0.35, color: '#222222' },
-        INTERNAL:   { roughness: 0.60, metallic: 0.0,  color: '#777777' },
-    };
+    const BODY_INDICES = [0, 1, 5];
 
     const colorMap = [
         { label: 'white', ko: '화이트', hex: '#FFFFFF' },
@@ -472,31 +449,13 @@ document.addEventListener('DOMContentLoaded', () => {
         { label: 'dark gray', ko: '다크 그레이', hex: '#3B3B47' },
     ];
 
-    const applyPartMaterial = (materials, indices, rgb, roughness, metallic, alpha, blend) => {
-        indices.forEach(idx => {
+    const applyBodyColor = (materials, hex) => {
+        const rgb = hexToRgb01(hex);
+        BODY_INDICES.forEach(idx => {
             const mat = materials[idx];
-            if (!mat) return;
-            mat.pbrMetallicRoughness.setBaseColorFactor([...rgb, alpha]);
-            mat.pbrMetallicRoughness.setRoughnessFactor(roughness);
-            mat.pbrMetallicRoughness.setMetallicFactor(metallic);
-            if (blend) {
-                mat.setAlphaMode('BLEND');
-                mat.setDoubleSided(true);
+            if (mat) {
+                mat.pbrMetallicRoughness.setBaseColorFactor([...rgb, 1]);
             }
-        });
-    };
-
-    const applyProductColor = (materials, bodyHex) => {
-        const bodyRgb = hexToRgb01(bodyHex);
-
-        Object.entries(PART).forEach(([partName, indices]) => {
-            const pbr = PART_PBR[partName];
-            const rgb = pbr.color ? hexToRgb01(pbr.color) : bodyRgb;
-            applyPartMaterial(
-                materials, indices, rgb,
-                pbr.roughness, pbr.metallic,
-                pbr.alpha || 1.0, pbr.blend || false
-            );
         });
     };
 
@@ -504,14 +463,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const colorBtns = document.querySelectorAll('.product__color');
     const productName = document.querySelector('.product__name');
     const modelEl = document.getElementById('product-model');
-
-    if (modelEl) {
-        modelEl.addEventListener('load', () => {
-            if (modelEl.model) {
-                applyProductColor(modelEl.model.materials, colorMap[0].hex);
-            }
-        });
-    }
 
     colorBtns.forEach((btn, i) => {
         btn.addEventListener('click', () => {
@@ -524,7 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (modelEl && modelEl.model) {
-                applyProductColor(modelEl.model.materials, color.hex);
+                applyBodyColor(modelEl.model.materials, color.hex);
             }
         });
 
