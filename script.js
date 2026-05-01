@@ -438,8 +438,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return [(n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255];
     };
 
-    const BODY_INDICES = [0, 1, 5];
-
     const colorMap = [
         { label: 'white', ko: '화이트', hex: '#FFFFFF' },
         { label: 'cream', ko: '크림', hex: '#FFF4EE' },
@@ -451,8 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const applyBodyColor = (materials, hex) => {
         const rgb = hexToRgb01(hex);
-        BODY_INDICES.forEach(idx => {
-            const mat = materials[idx];
+        materials.forEach(mat => {
             if (mat) {
                 mat.pbrMetallicRoughness.setBaseColorFactor([...rgb, 1]);
             }
