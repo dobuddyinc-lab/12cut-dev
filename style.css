@@ -737,7 +737,7 @@ img {
 
 .product__card {
   width: 100%;
-  max-width: 480px;
+  max-width: 720px;
   background: var(--gray-mid);
   border-radius: 30px;
   padding: 50px 40px;
