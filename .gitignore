@@ -16,6 +16,10 @@ npm-debug.log*
 
 # Dependency directories
 node_modules/
+.venv/
+
+# Backup originals
+assets/images/originals/
 
 # Env
 .env
