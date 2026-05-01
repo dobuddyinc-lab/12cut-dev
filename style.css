@@ -756,8 +756,8 @@ img {
 
 .product__viewer-wrap {
   position: relative;
-  width: 420px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 640px;
   flex-shrink: 0;
 }
 
@@ -1363,7 +1363,8 @@ img {
   }
 
   .product__viewer-wrap {
-    width: 280px;
+    width: 100%;
+    max-width: 400px;
   }
 
   .how__result-line {
