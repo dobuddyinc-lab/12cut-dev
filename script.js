@@ -190,6 +190,62 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let currentLang = 'en';
+    const DEFAULT_EDITOR_URL = 'https://www.donutframe.com/12cut_editor/index.html';
+    const runtimeCommerceConfig = window.__TWELVECUT_COMMERCE__ || {};
+    const pageQuery = new URLSearchParams(window.location.search);
+    const getQueryValue = (key) => (pageQuery.get(key) || '').trim();
+    const getRuntimeValue = (key) => {
+        const value = runtimeCommerceConfig[key];
+        return typeof value === 'string' ? value.trim() : '';
+    };
+    const commerceConfig = {
+        editorUrl: getRuntimeValue('editorUrl') || getQueryValue('editor_url') || DEFAULT_EDITOR_URL,
+        checkoutUrls: {
+            single: getRuntimeValue('checkoutSingle') || getQueryValue('checkout_single') || '',
+            same2: getRuntimeValue('checkoutSame2') || getQueryValue('checkout_same2') || '',
+            mix2: getRuntimeValue('checkoutMix2') || getQueryValue('checkout_mix2') || '',
+        },
+    };
+
+    function buildEditorLink(plan) {
+        const selectedPlan = plan || 'single';
+        try {
+            const url = new URL(commerceConfig.editorUrl);
+            url.searchParams.set('plan', selectedPlan);
+            url.searchParams.set('lang', currentLang);
+            return url.toString();
+        } catch (error) {
+            console.error('Invalid editor URL config:', error);
+            return `${DEFAULT_EDITOR_URL}?plan=${encodeURIComponent(selectedPlan)}&lang=${encodeURIComponent(currentLang)}`;
+        }
+    }
+
+    function resolveCheckoutLink(plan) {
+        const selectedPlan = plan || 'single';
+        return commerceConfig.checkoutUrls[selectedPlan] || '';
+    }
+
+    function syncCommerceLinks() {
+        const editorLinks = document.querySelectorAll('.js-editor-link');
+        const checkoutLinks = document.querySelectorAll('.js-checkout-link');
+
+        editorLinks.forEach((link) => {
+            const plan = link.dataset.plan || 'single';
+            const editorLink = buildEditorLink(plan);
+            link.href = editorLink;
+            link.setAttribute('aria-label', 'Open 12cut editor');
+        });
+
+        checkoutLinks.forEach((link) => {
+            const plan = link.dataset.plan || 'single';
+            const checkoutLink = resolveCheckoutLink(plan);
+            const fallbackEditorLink = buildEditorLink(plan);
+            const targetLink = checkoutLink || fallbackEditorLink;
+            link.href = targetLink;
+            link.dataset.checkoutMode = checkoutLink ? 'checkout' : 'editor';
+            link.setAttribute('aria-label', checkoutLink ? 'Go to checkout' : 'Open 12cut editor');
+        });
+    }
 
     const applyLang = (lang) => {
         currentLang = lang;
@@ -208,11 +264,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.toggle('lang-btn--active', btn.dataset.lang === lang);
         });
+
+        syncCommerceLinks();
     };
 
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
+    syncCommerceLinks();
 
     // ===== NAV SCROLL EFFECT =====
     const nav = document.getElementById('nav');
