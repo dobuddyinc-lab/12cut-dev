@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>12CUT 글로벌 도메인 확보 리포트</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f8f9fa;
+    --border: #e2e5e9;
+    --text-primary: #1a1d21;
+    --text-secondary: #5e6368;
+    --text-tertiary: #8b9099;
+    --accent: #2563eb;
+    --success: #16a34a;
+    --success-bg: #f0fdf4;
+    --danger: #dc2626;
+    --danger-bg: #fef2f2;
+    --warning: #d97706;
+    --warning-bg: #fffbeb;
+    --info: #2563eb;
+    --info-bg: #eff6ff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Segoe UI', sans-serif;
+    color: var(--text-primary);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  .header {
+    margin-bottom: 40px;
+  }
+
+  .header .label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .header .meta {
+    font-size: 14px;
+    color: var(--text-tertiary);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: 20px 16px;
+    background: var(--surface);
+    border-radius: 8px;
+  }
+
+  .stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-value.success { color: var(--success); }
+  .stat-value.danger { color: var(--danger); }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-top: 32px;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  thead th {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  tbody td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  .row-danger { background: var(--danger-bg); }
+
+  .pill {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .pill.available { background: var(--success-bg); color: var(--success); }
+  .pill.taken { background: var(--danger-bg); color: var(--danger); }
+  .pill.urgent { background: var(--warning-bg); color: var(--warning); }
+  .pill.info { background: var(--info-bg); color: var(--info); }
+  .pill.neutral { background: var(--surface); color: var(--text-secondary); }
+
+  code {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    background: var(--surface);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .whois-card {
+    background: var(--surface);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .whois-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .whois-card .card-body {
+    padding: 16px;
+  }
+
+  .whois-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .whois-item .label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+  }
+
+  .whois-item .value {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .whois-note {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .arch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .arch-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .arch-card .arch-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .arch-card .arch-role {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .arch-card .arch-domain {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .arch-card .arch-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  .callout {
+    border-left: 3px solid var(--warning);
+    background: var(--warning-bg);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 32px;
+  }
+
+  .callout .callout-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--warning);
+    margin-bottom: 6px;
+  }
+
+  .callout .callout-body {
+    font-size: 14px;
+    color: var(--text-primary);
+  }
+
+  .footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-tertiary);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .priority-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--surface);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 24px 16px 48px; }
+    h1 { font-size: 22px; }
+    .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .stat-card { padding: 14px 8px; }
+    .stat-value { font-size: 24px; }
+    .whois-grid { grid-template-columns: 1fr; }
+    .arch-grid { grid-template-columns: 1fr; }
+    table { font-size: 13px; }
+    thead th, tbody td { padding: 8px; }
+  }
+
+  @media print {
+    .page { max-width: 100%; padding: 24px; }
+    .callout { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="label">12CUT Domain Strategy</div>
+    <h1>글로벌 도메인 확보 현황 리포트</h1>
+    <div class="meta">WHOIS 실조회 기준 &middot; 2026.05.01 &middot; 내부 공유용</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value">5</div>
+      <div class="stat-label">조회 도메인</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value success">4</div>
+      <div class="stat-label">등록 가능</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value danger">1</div>
+      <div class="stat-label">선점됨</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h2>도메인별 등록 현황</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>도메인</th>
+        <th>상태</th>
+        <th>비고</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-danger">
+        <td><code>12cut.com</code></td>
+        <td><span class="pill taken">선점됨</span></td>
+        <td>네덜란드 레지스트라 등록 (2024.10) / 현재 404 미사용</td>
+      </tr>
+      <tr>
+        <td><code>12cut.co</code></td>
+        <td><span class="pill available">등록 가능</span></td>
+        <td>글로벌 1순위 권장</td>
+      </tr>
+      <tr>
+        <td><code>12cut.jp</code></td>
+        <td><span class="pill available">등록 가능</span></td>
+        <td>일본 주소(mailing address) 필요</td>
+      </tr>
+      <tr>
+        <td><code>12cut.photo</code></td>
+        <td><span class="pill available">등록 가능</span></td>
+        <td>전시 / 마케팅 랜딩용</td>
+      </tr>
+      <tr>
+        <td><code>12cut.studio</code></td>
+        <td><span class="pill available">등록 가능</span></td>
+        <td>크리에이티브 포지셔닝</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="divider"></div>
+
+  <h2>12cut.com 선점자 분석</h2>
+  <div class="whois-card">
+    <div class="card-header">
+      <span>WHOIS 조회 결과</span>
+      <span class="pill taken">선점</span>
+    </div>
+    <div class="card-body">
+      <div class="whois-grid">
+        <div class="whois-item">
+          <div class="label">레지스트라</div>
+          <div class="value">Metaregistrar BV (Netherlands)</div>
+        </div>
+        <div class="whois-item">
+          <div class="label">등록일</div>
+          <div class="value">2024.10.07</div>
+        </div>
+        <div class="whois-item">
+          <div class="label">만료일</div>
+          <div class="value">2026.10.07 (약 5개월 후)</div>
+        </div>
+        <div class="whois-item">
+          <div class="label">현재 상태</div>
+          <div class="value">Apache 404 (미사용)</div>
+        </div>
+      </div>
+      <div class="whois-note">
+        투기/파킹 목적 등록으로 추정됩니다. 만료 후 미갱신 시 Drop Catching이 가능하며, 
+        매입 협상 시 Metaregistrar BV(abuse@metaregistrar.com)를 통해 소유자에게 접근할 수 있습니다.
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h2>실행 우선순위</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:48px;text-align:center">#</th>
+        <th>도메인</th>
+        <th>긴급도</th>
+        <th style="text-align:right">예상 비용</th>
+        <th>액션</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align:center"><span class="priority-num">1</span></td>
+        <td><code>12cut.co</code></td>
+        <td><span class="pill urgent">긴급</span></td>
+        <td style="text-align:right">~$30/년</td>
+        <td>즉시 등록 (선점 리스크)</td>
+      </tr>
+      <tr>
+        <td style="text-align:center"><span class="priority-num">2</span></td>
+        <td><code>12cut.photo</code></td>
+        <td><span class="pill info">높음</span></td>
+        <td style="text-align:right">~$20/년</td>
+        <td>PhotoNEXT 전시 마케팅용</td>
+      </tr>
+      <tr>
+        <td style="text-align:center"><span class="priority-num">3</span></td>
+        <td><code>12cut.jp</code></td>
+        <td><span class="pill info">높음</span></td>
+        <td style="text-align:right">~$35/년</td>
+        <td>일본 주소 확보 후 등록</td>
+      </tr>
+      <tr>
+        <td style="text-align:center"><span class="priority-num">4</span></td>
+        <td><code>12cut.com</code></td>
+        <td><span class="pill neutral">중기</span></td>
+        <td style="text-align:right">$500~3,000</td>
+        <td>매입 협상 또는 10월 만료 대기</td>
+      </tr>
+      <tr>
+        <td style="text-align:center"><span class="priority-num">5</span></td>
+        <td><code>12cut.studio</code></td>
+        <td><span class="pill neutral">낮음</span></td>
+        <td style="text-align:right">~$15/년</td>
+        <td>브랜드 방어 등록</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="divider"></div>
+
+  <h2>권장 도메인 아키텍처</h2>
+  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+    Hub &amp; Spoke 모델 — 하나의 글로벌 도메인을 중심축으로, 지역/용도별 도메인이 위성 연결
+  </p>
+  <div class="arch-grid">
+    <div class="arch-card">
+      <div class="arch-header">
+        <span class="arch-role">글로벌 메인</span>
+        <span class="pill info">Primary</span>
+      </div>
+      <div class="arch-domain">12cut.co</div>
+      <div class="arch-desc">글로벌 공식 사이트. SEO 및 모든 마케팅 채널의 기준점.</div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-header">
+        <span class="arch-role">한국</span>
+        <span class="pill neutral">Redirect</span>
+      </div>
+      <div class="arch-domain">12cut.co.kr</div>
+      <div class="arch-desc">12cut.co/ko 로 리다이렉트. 기존 트래픽 유지.</div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-header">
+        <span class="arch-role">일본</span>
+        <span class="pill neutral">Regional</span>
+      </div>
+      <div class="arch-domain">12cut.jp</div>
+      <div class="arch-desc">12cut.co/ja 리다이렉트 또는 독립 운영. 현지 바이어 신뢰 강화.</div>
+    </div>
+    <div class="arch-card">
+      <div class="arch-header">
+        <span class="arch-role">전시 / 마케팅</span>
+        <span class="pill neutral">Campaign</span>
+      </div>
+      <div class="arch-domain">12cut.photo</div>
+      <div class="arch-desc">PhotoNEXT 전시 랜딩페이지. 캠페인 종료 후 메인으로 리다이렉트.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">6월 PhotoNEXT 전 필수 확보</div>
+    <div class="callout-body">
+      <code>12cut.co</code>는 현재 미등록 상태이나, 언제든 제3자에 의해 선점될 수 있습니다.
+      인쇄물·명함 제작 리드타임을 고려하면 <strong>5월 중 등록을 완료</strong>해야 합니다.
+      Namecheap, Cloudflare Registrar, 또는 가비아에서 즉시 등록을 권장합니다.
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>조회 방법: whois CLI (VeriSign, .CO Registry, JPRS) + DNS nslookup + HTTP status</span>
+    <span>Confidential — 내부 공유용</span>
+  </div>
+
+</div>
+</body>
+</html>
