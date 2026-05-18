@@ -190,10 +190,19 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let currentLang = 'en';
+
+    // ===== SHOPIFY STOREFRONT API =====
+    const SHOPIFY_STORE = '12cut-2.myshopify.com';
+    const SHOPIFY_STOREFRONT_TOKEN = '1fbcf067bf726bfac94a51637c195326';
+    const SHOPIFY_API_VERSION = '2025-01';
+
+    const SHOPIFY_VARIANTS = {
+        single: 'gid://shopify/ProductVariant/44139069407268',
+        same2:  'gid://shopify/ProductVariant/44139071471652',
+        mix2:   'gid://shopify/ProductVariant/44139073765412',
+    };
+
     const DEFAULT_EDITOR_URL = 'https://www.donutframe.com/12cut_editor/index.html';
-    const DEFAULT_LOGIN_URL = 'https://12cut.co.kr/member/login.php';
-    const DEFAULT_JOIN_URL = 'https://12cut.co.kr/member/join_method.php';
-    const DEFAULT_CART_URL = 'https://12cut.co.kr/order/cart.php';
     const DEFAULT_FLOW_MODE = 'editor-first';
     const runtimeCommerceConfig = window.__TWELVECUT_COMMERCE__ || {};
     const pageQuery = new URLSearchParams(window.location.search);
@@ -204,21 +213,98 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const commerceConfig = {
         editorUrl: getRuntimeValue('editorUrl') || getQueryValue('editor_url') || DEFAULT_EDITOR_URL,
-        loginUrl: getRuntimeValue('loginUrl') || getQueryValue('login_url') || DEFAULT_LOGIN_URL,
-        joinUrl: getRuntimeValue('joinUrl') || getQueryValue('join_url') || DEFAULT_JOIN_URL,
-        cartUrl: getRuntimeValue('cartUrl') || getQueryValue('cart_url') || DEFAULT_CART_URL,
         flowMode: getRuntimeValue('flowMode') || getQueryValue('flow_mode') || DEFAULT_FLOW_MODE,
+    };
+
+    const shopifyFetch = async (query, variables = {}) => {
+        const endpoint = `https://${SHOPIFY_STORE}/api/${SHOPIFY_API_VERSION}/graphql.json`;
+        try {
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Shopify-Storefront-Access-Token': SHOPIFY_STOREFRONT_TOKEN,
+                },
+                body: JSON.stringify({ query, variables }),
+            });
+            const json = await res.json();
+            if (json.errors) {
+                console.error('Shopify API error:', json.errors);
+                return null;
+            }
+            return json.data;
+        } catch (error) {
+            console.error('Shopify fetch failed:', error);
+            return null;
+        }
+    };
+
+    const createShopifyCheckout = async (plan) => {
+        const variantId = SHOPIFY_VARIANTS[plan];
+        if (!variantId) {
+            console.error('Unknown plan:', plan);
+            return null;
+        }
+
+        const quantity = 1;
+        const mutation = `
+            mutation cartCreate($input: CartInput!) {
+                cartCreate(input: $input) {
+                    cart {
+                        id
+                        checkoutUrl
+                    }
+                    userErrors {
+                        field
+                        message
+                    }
+                }
+            }
+        `;
+        const variables = {
+            input: {
+                lines: [{ merchandiseId: variantId, quantity }],
+            },
+        };
+
+        const data = await shopifyFetch(mutation, variables);
+        if (!data || !data.cartCreate || data.cartCreate.userErrors.length > 0) {
+            console.error('Cart creation failed:', data?.cartCreate?.userErrors);
+            return null;
+        }
+        return data.cartCreate.cart.checkoutUrl;
+    };
+
+    const handleCheckoutRedirect = async () => {
+        const action = pageQuery.get('action');
+        const plan = pageQuery.get('plan');
+        if (action !== 'checkout' || !plan) return;
+
+        document.body.style.cursor = 'wait';
+        const checkoutUrl = await createShopifyCheckout(plan);
+        if (checkoutUrl) {
+            window.location.href = checkoutUrl;
+        } else {
+            document.body.style.cursor = '';
+            alert('체크아웃 생성에 실패했습니다. 다시 시도해주세요.');
+        }
+    };
+
+    handleCheckoutRedirect();
+
+    const getCheckoutReturnUrl = (plan) => {
+        const base = window.location.origin + window.location.pathname;
+        return `${base}?action=checkout&plan=${encodeURIComponent(plan)}`;
     };
 
     function buildEditorLink(plan) {
         const selectedPlan = plan || 'single';
+        const cartUrl = getCheckoutReturnUrl(selectedPlan);
         try {
             const url = new URL(commerceConfig.editorUrl);
             url.searchParams.set('plan', selectedPlan);
             url.searchParams.set('lang', currentLang);
-            url.searchParams.set('login_url', commerceConfig.loginUrl);
-            url.searchParams.set('join_url', commerceConfig.joinUrl);
-            url.searchParams.set('cart_url', commerceConfig.cartUrl);
+            url.searchParams.set('cart_url', cartUrl);
             url.searchParams.set('flow_mode', commerceConfig.flowMode);
             url.searchParams.set('return_url', window.location.href);
             return url.toString();
@@ -228,22 +314,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const NEXT_APP_URL = 'https://12cut-dev.pages.dev';
+
+    const handleCheckoutClick = (e) => {
+        e.preventDefault();
+        const link = e.currentTarget;
+        const plan = link.dataset.plan || 'single';
+        window.location.href = `${NEXT_APP_URL}/cart?plan=${encodeURIComponent(plan)}`;
+    };
+
+    document.querySelectorAll('.js-checkout-link').forEach((link) => {
+        link.addEventListener('click', handleCheckoutClick);
+    });
+
     function syncCommerceLinks() {
-        const editorLinks = document.querySelectorAll('.js-editor-link');
-        const checkoutLinks = document.querySelectorAll('.js-checkout-link');
-
-        editorLinks.forEach((link) => {
+        document.querySelectorAll('.js-editor-link').forEach((link) => {
             const plan = link.dataset.plan || 'single';
-            const editorLink = buildEditorLink(plan);
-            link.href = editorLink;
-            link.setAttribute('aria-label', 'Open 12cut editor');
-        });
-
-        checkoutLinks.forEach((link) => {
-            const plan = link.dataset.plan || 'single';
-            const editorLink = buildEditorLink(plan);
-            link.href = editorLink;
-            link.dataset.checkoutMode = 'editor-first';
+            link.href = buildEditorLink(plan);
             link.setAttribute('aria-label', 'Open 12cut editor');
         });
     }
