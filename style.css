@@ -653,13 +653,13 @@ img {
 /* --- Film Viewer Lens --- */
 .film-reel__lens {
   position: absolute;
-  width: 30%;
+  width: 32%;
   aspect-ratio: 1;
   top: -8%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
-  border-radius: 50%;
+  border-radius: 22%;
   overflow: hidden;
   border: 3px solid #2a2a2a;
   box-shadow:
@@ -684,7 +684,7 @@ img {
 .film-reel__lens-grain {
   position: absolute;
   inset: 0;
-  border-radius: 50%;
+  border-radius: 22%;
   opacity: 0.06;
   mix-blend-mode: overlay;
   pointer-events: none;
@@ -695,12 +695,12 @@ img {
 .film-reel__lens-vignette {
   position: absolute;
   inset: 0;
-  border-radius: 50%;
+  border-radius: 22%;
   pointer-events: none;
   background: radial-gradient(
     circle,
-    transparent 45%,
-    rgba(0, 0, 0, 0.7) 100%
+    transparent 50%,
+    rgba(0, 0, 0, 0.6) 100%
   );
 }
 
@@ -1371,13 +1371,11 @@ img {
   }
 
   .film-reel__lens {
-    width: 30%;
+    width: 32%;
     top: -10%;
-    border-radius: 50% !important;
+    border-radius: 22% !important;
     overflow: hidden !important;
     aspect-ratio: 1;
-    -webkit-mask-image: radial-gradient(circle, #fff 100%, transparent 100%);
-    mask-image: radial-gradient(circle, #fff 100%, transparent 100%);
   }
 
   .film-reel__viewfinder {
