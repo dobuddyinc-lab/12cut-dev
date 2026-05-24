@@ -316,16 +316,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const NEXT_APP_URL = 'https://12cut-dev.pages.dev';
 
-    const handleCheckoutClick = (e) => {
-        e.preventDefault();
-        const link = e.currentTarget;
-        const plan = link.dataset.plan || 'single';
-        window.location.href = `${NEXT_APP_URL}/cart?plan=${encodeURIComponent(plan)}`;
+    const pricingCards = document.querySelectorAll('.js-pricing-card');
+    const pricingCta = document.querySelector('.js-pricing-cta');
+
+    const handleCardSelect = (selectedCard) => {
+        pricingCards.forEach((card) => {
+            card.classList.remove('pricing-card--selected');
+            card.setAttribute('aria-checked', 'false');
+        });
+        selectedCard.classList.add('pricing-card--selected');
+        selectedCard.setAttribute('aria-checked', 'true');
+        if (pricingCta) {
+            pricingCta.dataset.plan = selectedCard.dataset.plan;
+        }
     };
 
-    document.querySelectorAll('.js-checkout-link').forEach((link) => {
-        link.addEventListener('click', handleCheckoutClick);
+    pricingCards.forEach((card) => {
+        card.addEventListener('click', () => handleCardSelect(card));
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleCardSelect(card);
+            }
+        });
     });
+
+    if (pricingCta) {
+        pricingCta.addEventListener('click', (e) => {
+            e.preventDefault();
+            const plan = pricingCta.dataset.plan || 'single';
+            window.location.href = `${NEXT_APP_URL}/cart?plan=${encodeURIComponent(plan)}`;
+        });
+    }
 
     function syncCommerceLinks() {
         document.querySelectorAll('.js-editor-link').forEach((link) => {

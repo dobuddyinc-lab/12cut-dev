@@ -429,7 +429,7 @@
         </div>
 
         <div class="pricing__cards">
-            <div class="pricing-card">
+            <div class="pricing-card js-pricing-card" data-plan="single" role="radio" aria-checked="false" aria-label="1 Set – 12cut × 1" tabindex="0">
                 <span class="pricing-card__badge">1 Set</span>
                 <h3 class="pricing-card__name" data-i18n="pricing_1_name">12cut × 1</h3>
                 <div class="pricing-card__price">
@@ -441,10 +441,9 @@
                     <li data-i18n="pricing_f_viewer1">1 vintage viewer</li>
                     <li data-i18n="pricing_f_box">Kraft box packaging</li>
                 </ul>
-                <a href="#" class="pricing-card__btn js-checkout-link" data-plan="single" data-i18n="cta">Make Your Story</a>
             </div>
 
-            <div class="pricing-card pricing-card--featured">
+            <div class="pricing-card pricing-card--selected js-pricing-card" data-plan="same2" role="radio" aria-checked="true" aria-label="Same × 2 – Same Story × 2" tabindex="0">
                 <span class="pricing-card__badge">Same × 2</span>
                 <h3 class="pricing-card__name" data-i18n="pricing_2_name">Same Story × 2</h3>
                 <div class="pricing-card__price">
@@ -457,10 +456,9 @@
                     <li data-i18n="pricing_f_box">Kraft box packaging</li>
                     <li data-i18n="pricing_f_per2">₩50,000 per set</li>
                 </ul>
-                <a href="#" class="pricing-card__btn js-checkout-link" data-plan="same2" data-i18n="cta">Make Your Story</a>
             </div>
 
-            <div class="pricing-card">
+            <div class="pricing-card js-pricing-card" data-plan="mix2" role="radio" aria-checked="false" aria-label="Mix × 2 – Two Stories" tabindex="0">
                 <span class="pricing-card__badge">Mix × 2</span>
                 <h3 class="pricing-card__name" data-i18n="pricing_3_name">Two Stories</h3>
                 <div class="pricing-card__price">
@@ -472,8 +470,11 @@
                     <li data-i18n="pricing_f_viewer3">2 vintage viewers</li>
                     <li data-i18n="pricing_f_box">Kraft box packaging</li>
                 </ul>
-                <a href="#" class="pricing-card__btn js-checkout-link" data-plan="mix2" data-i18n="cta">Make Your Story</a>
             </div>
+        </div>
+
+        <div class="pricing__cta">
+            <a href="#" class="pricing__cta-btn js-pricing-cta" data-plan="same2" data-i18n="cta" aria-label="Make Your Story" tabindex="0">Make Your Story</a>
         </div>
     </section>
 
